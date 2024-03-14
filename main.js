@@ -155,12 +155,12 @@ class Empleado {
     }
 
     accederSistema(usuario, password) {
-        bandera = false;
+        this.bandera = false;
 
         if (usuario === this.usuario && password === this.password) {
-            bandera = true;
+            this.bandera = true;
         }
-        return bandera;
+        return this.bandera;
     }
 }
 
@@ -193,12 +193,12 @@ function entrar(){
     
     if (accesoAdmin) {
         //Acceso correcto para el admin
-        console.log('eres Administrador');
+        window.location = "admin.html"
     } else if (accesoTrabaja) {
         //Si no es admin, acceso correcto para el trabajador
-        console.lon('eres trabajador');
+        window.location = "trabajador.html"
     } else {
-        console.log('no existe');
+        
     }
-    
+
 }
