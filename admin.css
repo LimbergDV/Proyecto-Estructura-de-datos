@@ -1,0 +1,155 @@
+body, .btnNegros, .btnBlancos {
+  font-family: "Nunito Sans", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 500;
+  font-style: normal;
+  font-variation-settings:
+    "wdth" 100,
+    "YTLC" 500;
+}
+
+header {
+  width: 100%;
+}
+
+h1 {
+  padding: 1% 0 0 4%;
+}
+
+main {
+  width: 100%;
+}
+
+.division {
+  width: 100%;
+}
+
+.tablas {
+  width: 100%;
+  height: 800px;
+}
+
+.vista-tablas {
+  width: 50%;
+  float: left;
+  text-align: center;
+}
+
+.rectangulo {
+  background-color: #F5F5F5;
+  width: 90%;
+  border-radius: 10px;
+  margin-left: 2%;
+  margin-bottom: 2%;
+  height: 700px;
+  box-shadow: 4px 4px 4px #ADB5BD;
+  padding: 10px;
+}
+
+.tabla {
+  width: 100%;
+}
+
+#nombre, #costo {
+  width: 28%;
+}
+
+.tabla, th, td {
+  border: 1px solid black;
+  border-collapse: collapse;
+}
+
+.tabla th {
+  background-color: black;
+  color: #F5F5F5;
+}
+
+.tabla td {
+  background-color: #ffffff;
+}
+
+.botones {
+  width: 100%;
+  height: 250px;
+}
+
+.btns-servDispo, .btns-serDia {
+  width: 40%;
+  padding: 1% 3% 0 0;
+  display: inline-block;
+}
+
+.btns-serDia {
+  float: right;
+}
+
+.btn-izquierda, .btn-derecha {
+  width: 100%;
+  display: block;
+  padding: 10px;
+  text-align: center;
+}
+
+.btnNegros {
+  color: #ffffff;
+  background: black;
+  padding: 20px 30px;
+  border-radius: 15px;
+  border-color: transparent;
+  font-size: 20px;
+}
+
+.btnNegros:hover {
+  cursor: pointer;
+  transition: 0.5s;
+  transform: scale(0.95);
+}
+
+.btnNegros:active {
+  transition: 0.2s;
+  color: #ADB5BD;
+}
+
+.btnBlancos {
+  color: #000000;
+  background: #F5F5F5;
+  padding: 10px 30px;
+  border-radius: 15px;
+  border-color: 2px solid black;
+  font-size: 20px;
+  
+}
+
+.btnBlancos:hover {
+  cursor: pointer;
+  transition: 0.5s;
+  transform: scale(0.95);
+}
+
+.btnBlancos:active {
+  transition: 0.2s;
+  color: #343A40;
+}
+
+#editarServicio, #moverArriba, #cancelarServicio {
+  margin-right: 20px;
+}
+
+.formularios {
+  width: 100%;
+  height: 200px;
+}
+
+.form1, .form2 {
+  width: 50%;
+  display: inline-block;
+}
+
+.form2 {
+  float: right;
+}
+
+label {
+
+  display: block;
+}

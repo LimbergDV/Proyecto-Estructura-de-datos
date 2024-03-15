@@ -1,35 +1,151 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
+
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="inicio.css">
+    <meta name="viewport" content="width=device-width">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="admin.css">
     <title>Administrador</title>
+    <script src="main.js"></script>
 </head>
+
 <body>
-  <div class="header">
-    <h2>Citas de mecanico</h2>
-    <p>La mejor empresa de mecanicos</p>
-  </div>
+
+  <header>
+    <h1>Bienvenido Administrador</h1>
+  </header>
+
+  <main>
+    
+    <div class="tablas">
       
-  <div id="navbar">
-    <a class="active" href="inicio.html">Inicio</a>
-    <a href="agendarCita.html">Agendar Cita</a>
-    <a href="contacto.html">Contacto</a>
-  </div>
+      <section class="vista-tablas">
+        <h2>Servicios disponibles</h2>
+        <div class="rectangulo">
+          <table class="tabla">
+            <tr>
+              <th>Nombre del servicio</th>
+              <th>Costo MXN</th>
+            </tr>
+            <tr>
+              <td>gola</td>
+              <td>Costo MXN</td>
+            </tr>
+            <tr>
+              <td>gola</td>
+              <td></td>
+            </tr>
+            <tr>
+              <td>gola</td>
+              <td></td>
+            </tr>
+            <tr>
+              <td>gola</td>
+              <td></td>
+            </tr>
+            <tr>
+              <td>gola</td>
+              <td></td>
+            </tr>
+            <tr>
+              <td>gola</td>
+              <td></td>
+            </tr>
+            <tr>
+              <td>gola</td>
+              <td></td>
+            </tr>
+            <tr>
+              <td>gola</td>
+              <td></td>
+            </tr>
+            <tr>
+              <td>gola</td>
+              <td></td>
+            </tr>
+            <tr>
+              <td>gola</td>
+              <td></td>
+            </tr>
+          </table>
+        </div>
+      </section>
       
-  <div class="content">
-    <h3>Inicio</h3>
-    <p>Información de la empresa</p>
-    <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Eum non accusantium veritatis ex, inventore quasi corporis neque recusandae velit, culpa ea cupiditate dicta, quod quisquam natus officiis eaque iure libero.</p>
-    <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Eum non accusantium veritatis ex, inventore quasi corporis neque recusandae velit, culpa ea cupiditate dicta, quod quisquam natus officiis eaque iure libero.</p>
-    <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Eum non accusantium veritatis ex, inventore quasi corporis neque recusandae velit, culpa ea cupiditate dicta, quod quisquam natus officiis eaque iure libero.</p>
-    <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Eum non accusantium veritatis ex, inventore quasi corporis neque recusandae velit, culpa ea cupiditate dicta, quod quisquam natus officiis eaque iure libero.</p>
-    <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Eum non accusantium veritatis ex, inventore quasi corporis neque recusandae velit, culpa ea cupiditate dicta, quod quisquam natus officiis eaque iure libero.</p>
-  </div>
+      <section class="vista-tablas">
+        <h2>Servicios del dia</h2>
+        <div class="rectangulo">
+          <table class="tabla">
+            <tr>
+              <th id="nombre">Nombre del servicio</th>
+              <th id="costo">Costo MXN</th>
+              <th>ID</th>
+              <th>Horario</th>
+            </tr>
+            <tr>
+              <td>hola</td>
+              <td></td>
+              <td></td>
+              <td></td>
+            </tr>
+          </table>
+        </div>
+      </section>
 
-</body>
+    </div>
 
-<script src="main.js"></script>
+    <div class="botones">
 
+      <section class="btns-servDispo">
+        <div class="btn-izquierda">
+          <button class="btnNegros">Agreagar Servicio</button>
+        </div>
+        <div class="btn-derecha">
+          <button class="btnBlancos" id="editarServicio">Editar Servicio</button>
+          <button class="btnBlancos">Eliminar Servicio</button>
+        </div>   
+      </section>
+
+      <section class="btns-serDia">
+        <div class="btn-izquierda">
+          <button class="btnBlancos" id="moverArriba">Mover Arriba</button>
+          <button class="btnBlancos">Mover Abajo</button>
+        </div>
+        <div class="btn-derecha">
+          <button class="btnBlancos" id="cancelarServicio">Cancelar Servicio</button>
+          <button class="btnNegros">Cambiar horario</button>
+        </div>
+      </section>
+
+    </div>
+
+    <div class="formularios">
+
+      <section class="form1">
+        <form action="">
+          <label for="nombreServicio">Nombre del servicio: </label>
+          <input type="text" id="nombreServicio" placeholder="Cambio de aceite">
+          <label for="costoServicio">Costo del servicio: </label>
+          <input type="number" id="costoServicio" placeholder="00.00">
+          <input type="button" value="Guardar" id="btn-guardar">
+        </form>
+      </section>
+
+      <section class="form2">
+        <form action="">
+          <label for="nombreServicio">Ingrese el horario: </label>
+          <input type="time" id="horario">
+          <input type="button" value="Guardar" id="btn-guardar">
+        </form>
+      </section>
+
+    </div>
+
+  </main>
+
+  <footer>
+    <button>Volver</button>
+  </footer>
 </html>
