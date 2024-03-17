@@ -4,19 +4,28 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Inicio de sesión</title>
+    <link rel="stylesheet" href="login.css">
     <script src="main.js"></script>
 </head>
 <body>
-    <p>
-        <label for="usuario">Usuario: </label>
-        <input type="text" id="usuario">
-    </p>
+    <div class="formulario">
+        <h1>Inicio de sesión</h1>
 
-    <p>
+        <div class="username">
+        <input type="text" id="usuario" placeholder="Ingresa tu usuario">
+        <label for="usuario">Usuario: </label>
+        </div>
+
+        <div class="contraseña">
+        <input type="password" id="password" placeholder="Ingresa tu contraseña">
         <label for="password">Contraseña: </label>
-        <input type="password" id="password">
-        <button onclick="entrar()">Entrar</button>
-    </p>
-    
+        </div>  
+
+        <div class="button">
+        <button id="button" onclick="entrar()">Entrar</button>    
+        </div>
+
+    </div>
+
 </body>
 </html>
