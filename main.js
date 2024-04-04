@@ -198,14 +198,11 @@ function entrar(){
     
     if (accesoAdmin) {
         //Acceso correcto para el admin
-        window.location = "admin.html"
+        window.location = "admin.html";
     } else if (accesoTrabaja) {
         //Si no es admin, acceso correcto para el trabajador
-        window.location = "trabajador.html"
-    } else {
-        
-    }
-
+        window.location = "trabajador.html";
+    } 
 }
 
 // Logica para el administrador
@@ -266,6 +263,13 @@ function verServicios() {
 
 function verServiciosContratados() {
     //sumar costos
-    
-
+  
 }
+
+var boton = document.getElementById("volver");
+boton.disabled = true;
+
+function volver() {
+  window.location = "login.html";
+}
+
