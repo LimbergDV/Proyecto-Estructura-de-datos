@@ -7,9 +7,8 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="admin.css">
+    <link rel="stylesheet" href="/public/admin.css">
     <title>Administrador</title>
-    <script src="main.js"></script>
 </head>
 
 <body>
@@ -25,50 +24,10 @@
       <section class="vista-tablas">
         <h2>Servicios disponibles</h2>
         <div class="rectangulo">
-          <table class="tabla">
+          <table id="tablaServicios" class="tabla">
             <tr>
               <th>Nombre del servicio</th>
               <th>Costo MXN</th>
-            </tr>
-            <tr>
-              <td>gola</td>
-              <td>Costo MXN</td>
-            </tr>
-            <tr>
-              <td>gola</td>
-              <td></td>
-            </tr>
-            <tr>
-              <td>gola</td>
-              <td></td>
-            </tr>
-            <tr>
-              <td>gola</td>
-              <td></td>
-            </tr>
-            <tr>
-              <td>gola</td>
-              <td></td>
-            </tr>
-            <tr>
-              <td>gola</td>
-              <td></td>
-            </tr>
-            <tr>
-              <td>gola</td>
-              <td></td>
-            </tr>
-            <tr>
-              <td>gola</td>
-              <td></td>
-            </tr>
-            <tr>
-              <td>gola</td>
-              <td></td>
-            </tr>
-            <tr>
-              <td>gola</td>
-              <td></td>
             </tr>
           </table>
         </div>
@@ -129,7 +88,7 @@
           <input type="text" id="nombreServicio" placeholder="Cambio de aceite">
           <label for="costoServicio">Costo del servicio: </label>
           <input type="number" id="costoServicio" placeholder="00.00">
-          <input type="button" value="Guardar" class="btnNegros">
+          <input type="button" value="Guardar" class="btnNegros" id="nuevoServicio">
         </form>
       </section>
 
@@ -146,6 +105,9 @@
   </main>
 
   <footer>
-    <button class="btnBlancos" id="volver" onclick="volver()">Volver</button>
+    <button class="btnBlancos" id="volver" id="volver">Volver</button>
   </footer>
+
+  <script src="/src/components/admin.js" type="module"></script>
+</body>
 </html>
