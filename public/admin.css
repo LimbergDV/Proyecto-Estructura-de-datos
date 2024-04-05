@@ -99,6 +99,15 @@ main {
   font-size: 20px;
 }
 
+.btnNegrosSH {
+  color: #ffffff;
+  background: black;
+  padding: 20px 30px;
+  border-radius: 15px;
+  border-color: transparent;
+  font-size: 20px;
+}
+
 .btnNegros:hover {
   cursor: pointer;
   transition: 0.5s;

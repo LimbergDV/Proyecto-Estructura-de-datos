@@ -59,22 +59,22 @@
 
       <section class="btns-servDispo">
         <div class="btn-izquierda">
-          <button class="btnNegros">Agreagar Servicio</button>
+          <button class="btnNegros" id="agregarNuevo">Agreagar Servicio</button>
         </div>
         <div class="btn-derecha">
           <button class="btnBlancos" id="editarServicio">Editar Servicio</button>
-          <button class="btnBlancos">Eliminar Servicio</button>
+          <button class="btnBlancos" id="eleminarServicio">Eliminar Servicio</button>
         </div>   
       </section>
 
       <section class="btns-serDia">
         <div class="btn-izquierda">
           <button class="btnBlancos" id="moverArriba">Mover Arriba</button>
-          <button class="btnBlancos">Mover Abajo</button>
+          <button class="btnBlancos" id="moverAbajo">Mover Abajo</button>
         </div>
         <div class="btn-derecha">
           <button class="btnBlancos" id="cancelarServicio">Cancelar Servicio</button>
-          <button class="btnNegros">Cambiar horario</button>
+          <button class="btnNegros" id="cambiarHorario">Cambiar horario</button>
         </div>
       </section>
 
@@ -83,7 +83,7 @@
     <div class="formularios">
 
       <section class="form1">
-        <form action="">
+        <form action="" id="form1">
           <label for="nombreServicio">Nombre del servicio: </label>
           <input type="text" id="nombreServicio" placeholder="Cambio de aceite">
           <label for="costoServicio">Costo del servicio: </label>
