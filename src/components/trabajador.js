@@ -1,13 +1,14 @@
-import { ListaEnlazada } from "./listaEnlazada";
-import { Automovil } from "./clases";
-import { Servicio } from "./clases";
-import { Venta } from "./clases";
+import { ListaEnlazada } from "./listaEnlazada.js";
+import { Automovil } from "./clases.js";
+import { Servicio } from "./clases.js";
+import { Venta } from "./clases.js";
 
 const listaVentas = new ListaEnlazada();
 
 let btnEnviar = document.getElementById('enviar');
 
 btnEnviar.addEventListener('click', function() {
+  console.log("Botón presionado");
   //debes obtener las variables (del html)
   let marca = document.getElementById('marca').value;
   let modelo = document.getElementById('modelo').value;

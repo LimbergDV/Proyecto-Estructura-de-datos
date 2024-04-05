@@ -1,8 +1,6 @@
 import { ListaEnlazada } from './listaEnlazada.js';
 import { Servicio } from './clases.js';
 
-// Logica para el administrador
-
 const listaServicios = new ListaEnlazada();
 
 //Cargar servicios
@@ -33,8 +31,11 @@ function obtenerDOM(id) {
 }
 
 //Mostrar la tabla de servicios
-let tablaServicios = document.getElementById('tablaServicios');
-let cuerpoTablaServicios = document.createElement('tbody');
+
+
+
+  let tablaServicios = document.getElementById('tablaServicios');
+  let cuerpoTablaServicios = document.createElement('tbody');
 
   for (let i = 0; i < listaServicios.tamano; i++) {
     let fila = document.createElement('tr');
@@ -52,76 +53,22 @@ let cuerpoTablaServicios = document.createElement('tbody');
   }
 
 tablaServicios.appendChild(cuerpoTablaServicios);
-console.log(listaServicios.obtenerEn(listaServicios.tamano-1).nombre);
 
-//Opcion de cargar nuevo servicio 
+//Obtener todos los botones e inputs
 let btnGuardar = document.getElementById('nuevoServicio');
-
-btnGuardar.addEventListener('click', function () {
-  //Hacer que aparesca estos campos
-  let nombre = obtenerDOM('nombreServicio');
-  let costo = parseFloat(obtenerDOM('costoServicio'));
-
-  const servicio = new Servicio(nombre,costo);
-  listaServicios.insertarUltimo(servicio);
-
-  //Actualizar la tabla de servicios
-  let fila = document.createElement('tr');
-  let servicioL = listaServicios.obtenerEn(listaServicios.tamano-1);
-
-  let columnaNombre = document.createElement('td');
-  columnaNombre.innerText = servicioL.nombre;
-  fila.appendChild(columnaNombre);
-
-  let columnaCosto = document.createElement('td');
-  columnaCosto.innerText = servicioL.costo;
-  fila.appendChild(columnaCosto);
-  cuerpoTablaServicios.appendChild(fila);
-  tablaServicios.appendChild(cuerpoTablaServicios);
-  console.log(listaServicios.obtenerEn(listaServicios.tamano-1).nombre);
-  desactivarFomr1();
-});
-
-//Opcion editar servicios
 let btnEditarS = document.getElementById('editarServicio');
-
-btnEditarS.addEventListener('click', function () {
-  //seleccionar un servicio
-    //buscarlo en la lista 
-    //editar sus propiedades
-    let nombre = obtenerDOM('nombreServicio');
-    let costo = parseFloat(obtenerDOM('costoServicio'));
-
-    //listaServicios.Obteneren(indice).editarPropiedades(nombre,costo);
-
-    //Actualizar la tabla de servicios
-
-});
-
 let btnEleminarS = document.getElementById('eleminarServicio');
-
-let btnMoverArriba = document.getElementById('moverArriba');
-let btnMoverAbajo = document.getElementById('moverAbajo');
 let btnCancelarS = document.getElementById('cancelarServicio');
 let btnCambiarHorario = document.getElementById('cambiarHorario');
 let btnGuardarH = document.getElementById('guardar');
-
-
 let btnVolver = document.getElementById('volver');
-
-btnVolver.addEventListener('click', function () {
-  window.location = "login.html";
-  console.log(listaServicios.obtenerEn(listaServicios.tamano-1).nombre);
-});
-
-//Desactivar 
 let input1 = document.getElementById('nombreServicio');
 let input2 = document.getElementById('costoServicio');
 let input3 = document.getElementById('horario');
+let btnAgregarNuevo = document.getElementById('agregarNuevo');
 
+//Desactivar los campos necesarios
 function desactivarBtnTabla2() {
-  btnMoverArriba.disabled = true;
-  btnMoverAbajo.disabled = true;
   btnCancelarS.disabled = true;
   btnCambiarHorario.disabled = true;
 }
@@ -149,10 +96,90 @@ desactivarFomr2();
 desactivarBtnTabla1();
 desactivarBtnTabla2();
 
-let btnAgregarNuevo = document.getElementById('agregarNuevo');
 
+//Opcion de agregar nuevo servicio 
 btnAgregarNuevo.addEventListener('click', function (){
   input1.disabled = false;
   input2.disabled = false;
   btnGuardar.disabled = false;
 });
+
+
+btnGuardar.addEventListener('dblclick', function () {
+  //Hacer que aparesca estos campos
+  let nombre = obtenerDOM('nombreServicio');
+  let costo = parseFloat(obtenerDOM('costoServicio'));
+
+  const servicio = new Servicio(nombre,costo);
+  listaServicios.insertarUltimo(servicio);
+
+  //Actualizar la tabla de servicios
+  let fila = document.createElement('tr');
+  let servicioL = listaServicios.obtenerEn(listaServicios.tamano-1);
+
+  let columnaNombre = document.createElement('td');
+  columnaNombre.innerText = servicioL.nombre;
+  fila.appendChild(columnaNombre);
+
+  let columnaCosto = document.createElement('td');
+  columnaCosto.innerText = servicioL.costo;
+  fila.appendChild(columnaCosto);
+  cuerpoTablaServicios.appendChild(fila);
+  tablaServicios.appendChild(cuerpoTablaServicios);
+  console.log(listaServicios.obtenerEn(listaServicios.tamano-1).nombre);
+  desactivarFomr1();
+});
+
+
+//Opcion editar servicios
+let filas = tablaServicios.getElementsByTagName('tr');
+
+for (let i = 1; i < filas.length; i++) {
+  filas[i].addEventListener('click', function () {
+    btnEditarS.disabled = false;
+    btnEleminarS.disabled = false;
+
+    btnEditarS.addEventListener('click', function () {     
+      btnEleminarS.disabled = true;
+      input1.disabled = false;
+      input2.disabled = false;
+      btnGuardar.disabled = false;
+      let nombre = filas[i].cells[0].innerText;
+      let costo = filas[i].cells[1].innerHTML;
+      input1.value = nombre;
+      input2.value = costo;
+      
+      let index;
+      console.log(listaServicios.obtenerEn(i-1).nombre);
+      if (listaServicios.obtenerEn(i-1).nombre === nombre) {
+        index = i-1;
+      }
+
+      btnGuardar.addEventListener('click', function () {
+        nombre = obtenerDOM('nombreServicio');
+        costo = parseFloat(obtenerDOM('costoServicio'));
+        listaServicios.obtenerEn(index).editarPropiedades(nombre, costo);
+        console.log(listaServicios.obtenerEn(index).nombre);
+        console.log(listaServicios.obtenerEn(index).costo);
+        filas[i].cells[0].innerText = input1.value;
+        filas[i].cells[1].innerText = input2.value;        
+        desactivarFomr1();
+      });
+    });
+
+  });
+}
+
+
+
+
+
+btnVolver.addEventListener('click', function () {
+  window.location = "login.html";
+  console.log(listaServicios.obtenerEn(listaServicios.tamano-1).nombre);
+});
+
+
+
+
+
