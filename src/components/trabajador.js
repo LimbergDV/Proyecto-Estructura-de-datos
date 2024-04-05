@@ -1,6 +1,13 @@
+import { ListaEnlazada } from "./listaEnlazada";
+import { Automovil } from "./clases";
+import { Servicio } from "./clases";
+import { Venta } from "./clases";
+
 const listaVentas = new ListaEnlazada();
 
-function enviar() {
+let btnEnviar = document.getElementById('enviar');
+
+btnEnviar.addEventListener('click', function() {
   //debes obtener las variables (del html)
   let marca = document.getElementById('marca').value;
   let modelo = document.getElementById('modelo').value;
@@ -44,13 +51,18 @@ function enviar() {
   let servicioExtra = document.getElementById('servicio_ext').value;
   let precioExttra = parseFloat(document.getElementById('precio_ext')).value;
   
-  let Automovil = new Automovil (marca, modelo, placas, descripcion, serviciosSeleccionados, servicioExtra, precioExttra);
+  const auto = new Automovil (1, marca, modelo, placas, descripcion);
+  
+  
+
+  const servicio = new Servicio(servicioExtra, precioExttra);
+
+  const venta = new Venta(auto, serviciosSeleccionados, horario);
   
   listaVentas.insertarUltimo(venta);
-
   //asignarlas a sus respectivas clases 
   //Alguanas iran el listaa (Los servicios que se haran) 
   //Para un servicio especial (Obtener las variables y añadirlo a la lista de servicios)
   //Cargar la clase venta 
   //Añadir la venta a una lista de ventas 
-}
+});

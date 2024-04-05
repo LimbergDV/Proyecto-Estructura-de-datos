@@ -40,10 +40,9 @@ export class Servicio {
 }
 
 export class Venta {
-  constructor(automovil, listaServiciosPH, descripcion, horario) {
+  constructor(automovil, listaServiciosPH, horario) {
    this.automovil = automovil;
    this.listaServiciosPH = listaServiciosPH;
-   this.descripcion = descripcion;
    this.horario = horario;
   }
 }
