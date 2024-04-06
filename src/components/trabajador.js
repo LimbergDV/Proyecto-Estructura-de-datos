@@ -4,7 +4,7 @@ import { Servicio } from "./clases.js";
 import { Venta } from "./clases.js";
 
 
-export const listaVentas = new ListaEnlazada();
+const listaVentas = new ListaEnlazada();
 
 let idVenta = 1;
 const campoIdVenta = document.getElementById('id_venta');

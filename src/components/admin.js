@@ -1,5 +1,5 @@
 import { ListaEnlazada } from './listaEnlazada.js';
-import { Servicio } from './clases.js';
+import { Servicio, Venta } from './clases.js';
 
 const listaServicios = new ListaEnlazada();
 
@@ -31,9 +31,6 @@ function obtenerDOM(id) {
 }
 
 //Mostrar la tabla de servicios
-
-
-
   let tablaServicios = document.getElementById('tablaServicios');
   let cuerpoTablaServicios = document.createElement('tbody');
 
@@ -189,12 +186,50 @@ function activarEditarServicios() {
 activarEditarServicios();
 
 //Tabla2 servicios del dia
+let listaVentas = new ListaEnlazada();
+listaVentas = localStorage.getItem('listaVentas');
 
+let tablaDia = document.getElementById('tablaDia');
+let cuerpoTablaDia = document.createElement('tbody');
+
+for (let i = 0; i < listaVentas.tamano; i++) {
+  let fila = document.createElement('tr');
+  let venta = listaVentas.obtenerEn(i);
+
+  let columnaNombre = document.createElement('td');
+  columnaNombre.innerText = venta.listaServiciosPH[0];
+  fila.appendChild(columnaNombre);
+
+  let columnaCosto = document.createElement('td');
+  columnaCosto.innerText = calcularCostoTotal();
+  fila.appendChild(columnaCosto);
+
+  let columnaID = document.createElement('td');
+  columnaID.innerText = venta.automovil.id;
+  fila.appendChild(columnaID);
+
+  let columnaHorario = document.createElement('td');
+  columnaHorario.innerText = venta.horario;
+  fila.appendChild(columnaHorario);
+
+  cuerpoTablaDia.appendChild(fila);
+}
+
+tablaDia.appendChild(cuerpoTablaDia);
+
+function calcularCostoTotal(){
+  let costoTotal = 0;
+  for (let i = 0; i < listaVentas.obtenerEn(i).listaServiciosPH.length; i++) {
+    if (listaVentas.obtenerEn(i).listaServiciosPH[i] === listaServicios.obtenerEn(i).nombre) {
+      costoTotal += listaServicios.obtenerEn(i).costo;
+    }
+  }
+  return costoTotal;
+}
 
 
 btnVolver.addEventListener('click', function () {
   window.location = "login.html";
-  console.log(listaServicios.obtenerEn(listaServicios.tamano-1).nombre);
 });
 
 
