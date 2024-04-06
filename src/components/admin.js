@@ -102,6 +102,7 @@ btnAgregarNuevo.addEventListener('click', function (){
   input1.disabled = false;
   input2.disabled = false;
   btnGuardar.disabled = false;
+  desactivarBtnTabla1();
 });
 
 
@@ -128,49 +129,66 @@ btnGuardar.addEventListener('dblclick', function () {
   tablaServicios.appendChild(cuerpoTablaServicios);
   console.log(listaServicios.obtenerEn(listaServicios.tamano-1).nombre);
   desactivarFomr1();
+  activarEditarServicios();
 });
 
 
 //Opcion editar servicios
-let filas = tablaServicios.getElementsByTagName('tr');
+function activarEditarServicios() {
+  let filas = tablaServicios.getElementsByTagName('tr');
 
-for (let i = 1; i < filas.length; i++) {
-  filas[i].addEventListener('click', function () {
-    btnEditarS.disabled = false;
-    btnEleminarS.disabled = false;
+  for (let i = 1; i < filas.length; i++) {
+    filas[i].addEventListener('click', function () {
+      btnEditarS.disabled = false;
+      btnEleminarS.disabled = false;
 
-    btnEditarS.addEventListener('click', function () {     
-      btnEleminarS.disabled = true;
-      input1.disabled = false;
-      input2.disabled = false;
-      btnGuardar.disabled = false;
-      let nombre = filas[i].cells[0].innerText;
-      let costo = filas[i].cells[1].innerHTML;
-      input1.value = nombre;
-      input2.value = costo;
+      btnEditarS.addEventListener('click', function () {     
+        btnEleminarS.disabled = true;
+        input1.disabled = false;
+        input2.disabled = false;
+        btnGuardar.disabled = false;
+        let nombre = filas[i].cells[0].innerText;
+        let costo = filas[i].cells[1].innerHTML;
+        input1.value = nombre;
+        input2.value = costo;
+        
+        let index;
+        console.log(listaServicios.obtenerEn(i-1).nombre);
+        if (listaServicios.obtenerEn(i-1).nombre === nombre) {
+          index = i-1;
+        }
+
+        btnGuardar.addEventListener('click', function () {
+          nombre = obtenerDOM('nombreServicio');
+          costo = parseFloat(obtenerDOM('costoServicio'));
+          listaServicios.obtenerEn(index).editarPropiedades(nombre, costo);
+          console.log(listaServicios.obtenerEn(index).nombre);
+          console.log(listaServicios.obtenerEn(index).costo);
+          filas[i].cells[0].innerText = input1.value;
+          filas[i].cells[1].innerText = input2.value; 
+          activarEditarServicios();       
+          desactivarFomr1();
+          desactivarBtnTabla1();
+        });
+      });
       
-      let index;
-      console.log(listaServicios.obtenerEn(i-1).nombre);
-      if (listaServicios.obtenerEn(i-1).nombre === nombre) {
-        index = i-1;
-      }
-
-      btnGuardar.addEventListener('click', function () {
-        nombre = obtenerDOM('nombreServicio');
-        costo = parseFloat(obtenerDOM('costoServicio'));
-        listaServicios.obtenerEn(index).editarPropiedades(nombre, costo);
-        console.log(listaServicios.obtenerEn(index).nombre);
-        console.log(listaServicios.obtenerEn(index).costo);
-        filas[i].cells[0].innerText = input1.value;
-        filas[i].cells[1].innerText = input2.value;        
-        desactivarFomr1();
+      btnEleminarS.addEventListener('click', function (){
+        let nombre = filas[i].cells[0].innerText;
+        if (listaServicios.obtenerEn(i-1).nombre === nombre) {
+          listaServicios.removerEn(i-1);
+          filas[i].cells[0].innerText = input1.value = '';
+          filas[i].cells[1].innerText = input2.value = '';
+          activarEditarServicios();
+          desactivarBtnTabla1();
+        }
       });
     });
-
-  });
+}
 }
 
+activarEditarServicios();
 
+//Tabla2 servicios del dia
 
 
 
