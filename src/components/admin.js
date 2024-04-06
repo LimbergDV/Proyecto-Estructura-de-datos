@@ -54,8 +54,6 @@ let cuerpoTablaServicios = document.createElement('tbody');
 tablaServicios.appendChild(cuerpoTablaServicios);
 console.log(listaServicios.obtenerEn(listaServicios.tamano-1).nombre);
 
-
-
 //Opcion de cargar nuevo servicio 
 let btnGuardar = document.getElementById('nuevoServicio');
 
@@ -81,6 +79,7 @@ btnGuardar.addEventListener('click', function () {
   cuerpoTablaServicios.appendChild(fila);
   tablaServicios.appendChild(cuerpoTablaServicios);
   console.log(listaServicios.obtenerEn(listaServicios.tamano-1).nombre);
+  desactivarFomr1();
 });
 
 //Opcion editar servicios
@@ -99,9 +98,61 @@ btnEditarS.addEventListener('click', function () {
 
 });
 
+let btnEleminarS = document.getElementById('eleminarServicio');
+
+let btnMoverArriba = document.getElementById('moverArriba');
+let btnMoverAbajo = document.getElementById('moverAbajo');
+let btnCancelarS = document.getElementById('cancelarServicio');
+let btnCambiarHorario = document.getElementById('cambiarHorario');
+let btnGuardarH = document.getElementById('guardar');
+
+
 let btnVolver = document.getElementById('volver');
 
 btnVolver.addEventListener('click', function () {
   window.location = "login.html";
   console.log(listaServicios.obtenerEn(listaServicios.tamano-1).nombre);
+});
+
+//Desactivar 
+let input1 = document.getElementById('nombreServicio');
+let input2 = document.getElementById('costoServicio');
+let input3 = document.getElementById('horario');
+
+function desactivarBtnTabla2() {
+  btnMoverArriba.disabled = true;
+  btnMoverAbajo.disabled = true;
+  btnCancelarS.disabled = true;
+  btnCambiarHorario.disabled = true;
+}
+
+function desactivarBtnTabla1() { 
+  btnEditarS.disabled = true;
+  btnEleminarS.disabled = true;
+}
+
+function desactivarFomr1() {
+  input1.value = '';
+  input2.value = '';
+  btnGuardar.disabled = true; 
+  input1.disabled = true;
+  input2.disabled = true;
+}
+
+function desactivarFomr2() {
+  input3.disabled = true;
+  btnGuardarH.disabled = true;
+}
+
+desactivarFomr1();
+desactivarFomr2();
+desactivarBtnTabla1();
+desactivarBtnTabla2();
+
+let btnAgregarNuevo = document.getElementById('agregarNuevo');
+
+btnAgregarNuevo.addEventListener('click', function (){
+  input1.disabled = false;
+  input2.disabled = false;
+  btnGuardar.disabled = false;
 });
