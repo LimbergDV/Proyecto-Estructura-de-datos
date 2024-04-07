@@ -186,36 +186,6 @@ function activarEditarServicios() {
 activarEditarServicios();
 
 //Tabla2 servicios del dia
-let listaVentas = new ListaEnlazada();
-listaVentas = localStorage.getItem('listaVentas');
-
-let tablaDia = document.getElementById('tablaDia');
-let cuerpoTablaDia = document.createElement('tbody');
-
-for (let i = 0; i < listaVentas.tamano; i++) {
-  let fila = document.createElement('tr');
-  let venta = listaVentas.obtenerEn(i);
-
-  let columnaNombre = document.createElement('td');
-  columnaNombre.innerText = venta.listaServiciosPH[0];
-  fila.appendChild(columnaNombre);
-
-  let columnaCosto = document.createElement('td');
-  columnaCosto.innerText = calcularCostoTotal();
-  fila.appendChild(columnaCosto);
-
-  let columnaID = document.createElement('td');
-  columnaID.innerText = venta.automovil.id;
-  fila.appendChild(columnaID);
-
-  let columnaHorario = document.createElement('td');
-  columnaHorario.innerText = venta.horario;
-  fila.appendChild(columnaHorario);
-
-  cuerpoTablaDia.appendChild(fila);
-}
-
-tablaDia.appendChild(cuerpoTablaDia);
 
 function calcularCostoTotal(){
   let costoTotal = 0;
@@ -227,6 +197,33 @@ function calcularCostoTotal(){
   return costoTotal;
 }
 
+document.addEventListener('DOMContentLoaded', function () {
+  // Recuperar datos del trabajador desde LocalStorage
+  let marca = localStorage.getItem('marca');
+  let modelo = localStorage.getItem('modelo');
+  let placas = localStorage.getItem('placas');
+  let descripcion = localStorage.getItem('descripcion');
+  let serviciosSeleccionados = JSON.parse(localStorage.getItem('serviciosSeleccionados'));
+  let servicioExtra = localStorage.getItem('servicioExtra');
+  let precioExtra = parseFloat(localStorage.getItem('precioExtra'));
+
+  // Mostrar los datos en la tabla de servicios del día
+  let tablaServiciosDia = document.getElementById('tablaDia');
+  let fila = document.createElement('tr');
+
+  let columnaNombreServicio = document.createElement('td');
+  columnaNombreServicio.innerText = marca + ' ' + modelo; // Puedes mostrar más información si lo deseas
+  fila.appendChild(columnaNombreServicio);
+
+  let columnaCostoTotal = document.createElement('td');
+  let costoTotal = serviciosSeleccionados.reduce((total, servicio) => total + parseFloat(servicio), 0) + precioExtra;
+  columnaCostoTotal.innerText = costoTotal.toFixed(2); // Mostrar el costo total con dos decimales
+  fila.appendChild(columnaCostoTotal);
+
+  // Puedes agregar más columnas si lo deseas, como la descripción, placas, etc.
+
+  tablaServiciosDia.appendChild(fila);
+});
 
 btnVolver.addEventListener('click', function () {
   window.location = "login.html";
