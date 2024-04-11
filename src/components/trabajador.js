@@ -113,7 +113,7 @@ btnEnviar.addEventListener('click', function() {
  localStorage.setItem('serviciosSeleccionados', JSON.stringify(serviciosSeleccionados));
  localStorage.setItem('servicioExtra', servicioExtra);
  localStorage.setItem('precioExtra', precioExtra);
- localStorage.setItem('listaVentas', listaVentas);
+ localStorage.setItem('listaVentas', JSON.stringify(listaVentas));
  
  //verificar si se estan guardando las ventas
  console.log(listaVentas.obtenerEn(0).automovil.marca);
@@ -121,8 +121,8 @@ btnEnviar.addEventListener('click', function() {
   limpiarDatos();
 });
 
-let listaVentas2 = new ListaEnlazada (); 
-listaVentas2 = localStorage.getItem('listaVentas');
+// Convertir la lista serializada de nuevo a un objeto JavaScript
+let listaVentas2 = JSON.parse(localStorage.getItem('listaVentas'));
 
 console.log(listaVentas2.obtenerEn(0).automovil.marca);
 

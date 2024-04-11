@@ -186,6 +186,10 @@ function activarEditarServicios() {
 activarEditarServicios();
 
 //Tabla2 servicios del dia
+let listaVentas = new ListaEnlazada();
+listaVentas = localStorage.getItem('listaVentas');
+
+//console.log(listaVentas.obtenerEn(0).automovil.marca);
 
 function calcularCostoTotal(){
   let costoTotal = 0;
@@ -199,30 +203,44 @@ function calcularCostoTotal(){
 
 document.addEventListener('DOMContentLoaded', function () {
   // Recuperar datos del trabajador desde LocalStorage
-  let marca = localStorage.getItem('marca');
-  let modelo = localStorage.getItem('modelo');
-  let placas = localStorage.getItem('placas');
-  let descripcion = localStorage.getItem('descripcion');
-  let serviciosSeleccionados = JSON.parse(localStorage.getItem('serviciosSeleccionados'));
-  let servicioExtra = localStorage.getItem('servicioExtra');
-  let precioExtra = parseFloat(localStorage.getItem('precioExtra'));
-
-  // Mostrar los datos en la tabla de servicios del día
   let tablaServiciosDia = document.getElementById('tablaDia');
-  let fila = document.createElement('tr');
 
-  let columnaNombreServicio = document.createElement('td');
-  columnaNombreServicio.innerText = marca + ' ' + modelo; // Puedes mostrar más información si lo deseas
-  fila.appendChild(columnaNombreServicio);
+  for (let i = 0; i < listaVentas.tamano; i++) {
 
-  let columnaCostoTotal = document.createElement('td');
-  let costoTotal = serviciosSeleccionados.reduce((total, servicio) => total + parseFloat(servicio), 0) + precioExtra;
-  columnaCostoTotal.innerText = costoTotal.toFixed(2); // Mostrar el costo total con dos decimales
-  fila.appendChild(columnaCostoTotal);
+    let servicio = listaVentas.obtenerEn(i);
+    
+    let nombreServicio = servicio.listaServiciosPH[i];
+    let costo = calcularCostoTotal();
+    let id = servicio.automovil.id;
+    let horario = servicio.horario;
 
-  // Puedes agregar más columnas si lo deseas, como la descripción, placas, etc.
+    console.log(nombreServicio);
+    console.log(costo);
+    console.log(id);
+    console.log(horario);
+    // Mostrar los datos en la tabla de servicios del día
+    
+    let fila = document.createElement('tr');
 
-  tablaServiciosDia.appendChild(fila);
+    let columnaNombreServicio = document.createElement('td');
+    columnaNombreServicio.innerText = nombreServicio; // Puedes mostrar más información si lo deseas
+    fila.appendChild(columnaNombreServicio);
+
+    let columnaCostoTotal = document.createElement('td');
+    columnaCostoTotal.innerText = costo; // Mostrar el costo total con dos decimales
+    fila.appendChild(columnaCostoTotal);
+
+    let columnaId = document.createElement('td');
+    columnaId.innerText = id; // Mostrar el costo total con dos decimales
+    fila.appendChild(columnaId);
+
+    let columnaHorario = document.createElement('td');
+    columnaHorario.innerText = horario; // Mostrar el costo total con dos decimales
+    fila.appendChild(columnaHorario);
+
+    tablaServiciosDia.appendChild(fila);
+    }
+    // Puedes agregar más columnas si lo deseas, como la descripción, placas, etc.
 });
 
 btnVolver.addEventListener('click', function () {

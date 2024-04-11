@@ -1,3 +1,5 @@
+import { ListaEnlazada } from "./listaEnlazada";
+
 // Declara aquí las clases
 export class Automovil {
     constructor(id, marca, modelo, placas, descripcion) {
@@ -6,9 +8,7 @@ export class Automovil {
         this.modelo = modelo;
         this.placas =  placas;
         this.descripcion = descripcion;
-
     }
-
 }
 
 export class Empleado {
@@ -33,16 +33,31 @@ export class Servicio {
         this.costo = costo;
     }
 
-    editarPropiedades(nombre, costo) {
+    modificarServicio(nombre, costo) {
         this.nombre = nombre;
         this.costo = costo;
     }
 }
 
+export class Taller {
+    constructor() {
+        this.listaServicios = new ListaEnlazada();
+    }
+
+    cargarServicios() {}
+    cargarServicioExtra(nombre, costo) {}
+    elegirServicio() {}
+}
+
 export class Venta {
-  constructor(automovil, listaServiciosPH, horario) {
-   this.automovil = automovil;
-   this.listaServiciosPH = listaServiciosPH;
-   this.horario = horario;
+  constructor(automovil, servicio, horario) {
+    this.listaServicio = new ListaEnlazada();
+    this.automovil = automovil;
+    this.servicio = servicio;
+    this.horario = horario;
   }
+
+  modificarHorario() {}
+  calcularTotal() {}
+  
 }
