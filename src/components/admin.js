@@ -1,5 +1,4 @@
-import { ListaEnlazada } from './listaEnlazada.js';
-import { Servicio, Venta, Taller, Automovil } from './clases.js';
+import  { Venta, Taller, Automovil } from './clases.js';
 
 const main = new Taller();
 
