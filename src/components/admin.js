@@ -1,30 +1,51 @@
 import { ListaEnlazada } from './listaEnlazada.js';
-import { Servicio, Venta } from './clases.js';
+import { Servicio, Venta, Taller, Automovil } from './clases.js';
 
-const listaServicios = new ListaEnlazada();
+const main = new Taller();
 
-//Cargar servicios
-const servicio0 = new Servicio('Cambio de aceite', 750);
-listaServicios.insertarUltimo(servicio0);
-const servicio1 = new Servicio('Revisión y ajuste del sistema de frenos', 1500);
-listaServicios.insertarUltimo(servicio1);
-const servicio2 = new Servicio('Rotación de neumaticos', 300);
-listaServicios.insertarUltimo(servicio2);
-const servicio3 = new Servicio('Alineación y balanceo', 600);
-listaServicios.insertarUltimo(servicio3);
-const servicio4 = new Servicio('Mantenimiento del sistema de enfriamiento', 1000);
-listaServicios.insertarUltimo(servicio4);
-const servicio5 = new Servicio('Cambio de correas', 500);
-listaServicios.insertarUltimo(servicio5);
-const servicio6 = new Servicio('Mantenimiento del sistema de indiección de combustible', 1000);
-listaServicios.insertarUltimo(servicio6);
-const servicio7 = new Servicio('Cambio de baterías', 200);
-listaServicios.insertarUltimo(servicio7);
-const servicio8 = new Servicio('Mantenimiento del sistema de suspencion', 1100);
-listaServicios.insertarUltimo(servicio8);
-const servicio9 = new Servicio('Remplazo de fluidos', 500);
-listaServicios.insertarUltimo(servicio9);
+if (!(localStorage.length === 0 && Object.keys(localStorage).length === 0)) {
+  obtenerDatos();
+}
 
+function obtenerDatos() {
+    let campoIdVenta = localStorage.getItem('id');
+    let marca = localStorage.getItem('marca');
+    let modelo = localStorage.getItem('modelo');
+    let placas = localStorage.getItem('placas');
+    let horaEntrada = localStorage.getItem('horaEntrada');
+    let descripcion = localStorage.getItem('descripcion');
+    let serviciosSeleccionados = JSON.parse(localStorage.getItem('serviciosSeleccionados'));
+
+    const automovil = new Automovil(campoIdVenta, marca, modelo, placas, descripcion);
+    const venta = new Venta(automovil, horaEntrada);
+
+    let nombre = localStorage.getItem('servicioNuevo');
+    let costo = localStorage.getItem('precioNuevo');
+
+    if (!nombre == '' && !costo == 0) {
+      venta.taller.cargarServicioExtra(nombre, costo);
+    }
+
+    venta.elegirSer(serviciosSeleccionados);
+    main.addVenta(venta);
+}
+
+function mostrarServiciosExtra() {
+    let nombre = localStorage.getItem('servicioNuevo');
+    let costo = localStorage.getItem('precioNuevo');
+
+    if (!nombre == '' && !costo == 0) {
+    let fila = document.createElement('tr');
+    let columnaNombreExtra = document.createElement('td');
+    columnaNombreExtra.innerText = nombre;
+    fila.appendChild(columnaNombreExtra);
+
+    let columnaCostoExtra = document.createElement('td');
+    columnaCostoExtra.innerText = costo;
+    fila.appendChild(columnaCostoExtra);
+    cuerpoTablaServicios.appendChild(fila);
+    }
+}
 function obtenerDOM(id) {
   let valor = document.getElementById(id).value;
   return valor;
@@ -34,9 +55,9 @@ function obtenerDOM(id) {
   let tablaServicios = document.getElementById('tablaServicios');
   let cuerpoTablaServicios = document.createElement('tbody');
 
-  for (let i = 0; i < listaServicios.tamano; i++) {
+  for (let i = 0; i < main.listaServicios.tamano; i++) {
     let fila = document.createElement('tr');
-    let servicio = listaServicios.obtenerEn(i);
+    let servicio = main.listaServicios.obtenerEn(i);
 
     let columnaNombre = document.createElement('td');
     columnaNombre.innerText = servicio.nombre;
@@ -48,7 +69,7 @@ function obtenerDOM(id) {
 
     cuerpoTablaServicios.appendChild(fila);
   }
-
+  mostrarServiciosExtra();
 tablaServicios.appendChild(cuerpoTablaServicios);
 
 //Obtener todos los botones e inputs
@@ -108,12 +129,13 @@ btnGuardar.addEventListener('dblclick', function () {
   let nombre = obtenerDOM('nombreServicio');
   let costo = parseFloat(obtenerDOM('costoServicio'));
 
-  const servicio = new Servicio(nombre,costo);
-  listaServicios.insertarUltimo(servicio);
+  localStorage.setItem('servicioNuevo', nombre);
+  localStorage.setItem('precioNuevo', parseFloat(costo));
+  main.cargarServicioExtra(nombre, costo);
 
   //Actualizar la tabla de servicios
   let fila = document.createElement('tr');
-  let servicioL = listaServicios.obtenerEn(listaServicios.tamano-1);
+  let servicioL = main.listaServicios.obtenerEn(main.listaServicios.tamano-1);
 
   let columnaNombre = document.createElement('td');
   columnaNombre.innerText = servicioL.nombre;
@@ -122,9 +144,9 @@ btnGuardar.addEventListener('dblclick', function () {
   let columnaCosto = document.createElement('td');
   columnaCosto.innerText = servicioL.costo;
   fila.appendChild(columnaCosto);
+
   cuerpoTablaServicios.appendChild(fila);
   tablaServicios.appendChild(cuerpoTablaServicios);
-  console.log(listaServicios.obtenerEn(listaServicios.tamano-1).nombre);
   desactivarFomr1();
   activarEditarServicios();
 });
@@ -150,17 +172,14 @@ function activarEditarServicios() {
         input2.value = costo;
         
         let index;
-        console.log(listaServicios.obtenerEn(i-1).nombre);
-        if (listaServicios.obtenerEn(i-1).nombre === nombre) {
+        if (main.listaServicios.obtenerEn(i-1).nombre === nombre) {
           index = i-1;
         }
 
         btnGuardar.addEventListener('click', function () {
           nombre = obtenerDOM('nombreServicio');
           costo = parseFloat(obtenerDOM('costoServicio'));
-          listaServicios.obtenerEn(index).editarPropiedades(nombre, costo);
-          console.log(listaServicios.obtenerEn(index).nombre);
-          console.log(listaServicios.obtenerEn(index).costo);
+          main.listaServicios.obtenerEn(index).modificarServicio(nombre, costo);
           filas[i].cells[0].innerText = input1.value;
           filas[i].cells[1].innerText = input2.value; 
           activarEditarServicios();       
@@ -171,13 +190,13 @@ function activarEditarServicios() {
       
       btnEleminarS.addEventListener('click', function (){
         let nombre = filas[i].cells[0].innerText;
-        if (listaServicios.obtenerEn(i-1).nombre === nombre) {
-          listaServicios.removerEn(i-1);
+        if (main.listaServicios.obtenerEn(i-1).nombre == nombre) {
+          main.listaServicios.removerEn(i-1);
           filas[i].cells[0].innerText = input1.value = '';
           filas[i].cells[1].innerText = input2.value = '';
           activarEditarServicios();
           desactivarBtnTabla1();
-        }
+        } 
       });
     });
 }
@@ -186,42 +205,21 @@ function activarEditarServicios() {
 activarEditarServicios();
 
 //Tabla2 servicios del dia
-let listaVentas = new ListaEnlazada();
-listaVentas = localStorage.getItem('listaVentas');
 
-//console.log(listaVentas.obtenerEn(0).automovil.marca);
-
-function calcularCostoTotal(){
-  let costoTotal = 0;
-  for (let i = 0; i < listaVentas.obtenerEn(i).listaServiciosPH.length; i++) {
-    if (listaVentas.obtenerEn(i).listaServiciosPH[i] === listaServicios.obtenerEn(i).nombre) {
-      costoTotal += listaServicios.obtenerEn(i).costo;
-    }
-  }
-  return costoTotal;
-}
-
+let tablaServiciosDia = document.getElementById('tablaDia');
 document.addEventListener('DOMContentLoaded', function () {
   // Recuperar datos del trabajador desde LocalStorage
-  let tablaServiciosDia = document.getElementById('tablaDia');
+  for (let i = 0; i < main.listaVentas.tamano; i++) {
+    let servicio = main.listaVentas.obtenerEn(i);
 
-  for (let i = 0; i < listaVentas.tamano; i++) {
-
-    let servicio = listaVentas.obtenerEn(i);
-    
-    let nombreServicio = servicio.listaServiciosPH[i];
-    let costo = calcularCostoTotal();
+    for (let j = 0; j < servicio.seleccionados.tamano; j++) {   
+    let nombreServicio = servicio.seleccionados.obtenerEn(j).nombre;
+    let costo = servicio.seleccionados.obtenerEn(j).costo;
     let id = servicio.automovil.id;
     let horario = servicio.horario;
-
-    console.log(nombreServicio);
-    console.log(costo);
-    console.log(id);
-    console.log(horario);
     // Mostrar los datos en la tabla de servicios del día
     
-    let fila = document.createElement('tr');
-
+    let fila = document.createElement('tr');  
     let columnaNombreServicio = document.createElement('td');
     columnaNombreServicio.innerText = nombreServicio; // Puedes mostrar más información si lo deseas
     fila.appendChild(columnaNombreServicio);
@@ -239,15 +237,48 @@ document.addEventListener('DOMContentLoaded', function () {
     fila.appendChild(columnaHorario);
 
     tablaServiciosDia.appendChild(fila);
+    }};
+
+    //Botones tabla dos
+    let filas = tablaServiciosDia.getElementsByTagName('tr');
+    for (let i = 1; i < filas.length; i++) {
+      filas[i].addEventListener('click', function () {
+        btnCancelarS.disabled = false;
+        btnCambiarHorario.disabled = false;
+
+        btnCambiarHorario.addEventListener('click', function (){
+          input3.disabled = false;
+          btnGuardarH.disabled = false;
+
+          btnGuardarH.addEventListener('click', function () {
+            let horario = document.getElementById('horario').value;
+            main.listaVentas.obtenerEn(i-1).modificarHorario(horario);
+            
+            filas[i].cells[3].innerText =  horario;
+            desactivarFomr2();
+            desactivarBtnTabla2();
+          });
+        });
+
+        btnCancelarS.addEventListener('click', function (){
+          let nombre = filas[i].cells[0].innerText;
+          if (main.listaVentas.obtenerEn(i-1).seleccionados.obtenerEn(i-1).nombre == nombre) {
+            main.listaVentas.obtenerEn(i-1).seleccionados.removerEn(i-1);
+            filas[i].cells[0].innerText = '';
+            filas[i].cells[1].innerText =  '';
+            filas[i].cells[2].innerText =  '';
+            filas[i].cells[3].innerText =  '';
+            desactivarFomr2();
+            desactivarBtnTabla2();
+          } 
+        });
+
+      });
     }
-    // Puedes agregar más columnas si lo deseas, como la descripción, placas, etc.
+
 });
 
 btnVolver.addEventListener('click', function () {
   window.location = "login.html";
 });
-
-
-
-
 
