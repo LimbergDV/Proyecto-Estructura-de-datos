@@ -23,3 +23,47 @@ h1 {
 label{
     font-weight: bold;
 }
+
+select {
+    width: 350px;
+    padding: 10px 5px;
+    margin-bottom: 10px;
+    border-radius: 15px;
+    background-color: #F5F5F5;
+    border-color: transparent;
+ }
+
+ .Inputs input{
+    width: 350px;
+    padding: 10px 5px;
+    margin-bottom: 10px;
+    border-radius: 15px;
+    background-color: #F5F5F5;
+    border-color: transparent;
+ }
+
+ .Inputs2 input{
+    width: 350px;
+    padding: 10px 5px;
+    margin-bottom: 10px;
+    border-radius: 15px;
+    background-color: #F5F5F5;
+    border-color: transparent;
+ }
+
+ button{
+    color: #ffffff;
+    background: #000000;
+    padding: 10px 30px;
+    border-radius: 15px;
+    border-color: 2px solid rgb(255, 254, 254);
+    font-size: 20px;
+ }
+
+ button:hover {
+    cursor: pointer;
+    transition: 0.5s;
+    transform: scale(0.95);
+  }
+
+ 

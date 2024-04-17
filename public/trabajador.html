@@ -9,14 +9,17 @@
     <title>Trabajador de Taller Mecánico</title>
     <link rel="stylesheet" href="/public/trabajador.css">
 </head>
+
 <body>
     
     <header>
     <h1>Datos del coche</h1>
     </header>
     
-    <div class="principal">
+    <main>
 
+    <div class="principal">
+        <div class="Inputs">
         <p>
             <label for="id">ID de venta: </label>
             <input type="text" id="id_venta" readonly>
@@ -75,12 +78,12 @@
 
     <p>
         <label for="modelo">Modelo del coche: </label>
-        <input type="text" id="modelo">
+        <input type="text" id="modelo" placeholder="Ingrese el modelo del vehículo">
     </p>
 
     <p>
         <label for="placas">Número de Placas: </label>
-        <input type="text" id="placas" maxlength="7" >
+        <input type="text" id="placas" maxlength="7" placeholder="Ingrese el numero de placas. Max 7 caracteres" >
     </p>
 
     <p>
@@ -90,8 +93,10 @@
 
     <p>
         <label for="descripcion">Descripción del problema: </label>
-        <input type="text" id="descripcion">
+        <input type="text" id="descripcion" placeholder="Describa brevevemente el problema del vehículo">
     </p>
+
+</div>
 
     <label for="servicios">Servicios por realizar: </label>
     <br>
@@ -115,18 +120,21 @@
     <br>
     <br> Remplazo de fluidos $500 <input type="checkbox" name="" id="remplazo_fluidos" value="500">
 
+    <div class="Inputs2">
     <p>
         <label for="servicioExt">Servicio extra: </label>
         <br>
-        Tipo de servicio: <input type="text" id="servicio_ext">
+        Tipo de servicio: <input type="text" id="servicio_ext" placeholder="Ingrese el tipo de servicio extra">
         <br>
-        Precio: <input type="number" id="precio_ext">
+        Precio: <input type="number" id="precio_ext" placeholder="$00.00">
     </p>
+    </div>
 
     <button type="button" id="enviar">Enviar Datos</button> 
 
-</div>
+    </div>
 
+</main>
 
     <script src="/src/components/trabajador.js" type="module"></script>
 </body>
